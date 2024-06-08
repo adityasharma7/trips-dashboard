@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import Header from './components/Header';
+import Body from './components/Body';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
@@ -7,7 +9,8 @@ const root = ReactDOM.createRoot(document.querySelector('#root'));
 const App = () => {
     return (
         <div className='app'>
-            <h1>Trips Dashboard</h1>
+            <Header />
+            <Body />
         </div>
     )
 }
