@@ -2,8 +2,19 @@ import React, { Fragment, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { availableTransporters } from "../utils/constants";
-const AddTrip = ({ onClose }) => {
-  const [formData, setFormData] = useState({});
+const AddTrip = ({ onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    transporter: "Blue Dart"
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,8 +40,10 @@ const AddTrip = ({ onClose }) => {
             <input
               type="text"
               id="trip-id"
+              name="tripId"
               class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleInputChange}
             />
             <label
               for="trip-id"
@@ -41,8 +54,10 @@ const AddTrip = ({ onClose }) => {
           </div>
           <div class="relative ml-2">
             <select
-              id="status"
+              id="transporter"
+              name="transporter"
               class="bg-gray-50 border border-gray-300 px-4 text-gray-1000 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={handleInputChange}
             >
               {Object.keys(availableTransporters).map((id) => {
                 return (
@@ -53,7 +68,7 @@ const AddTrip = ({ onClose }) => {
               })}
             </select>
             <label
-              for="status"
+              for="transporter"
               class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
             >
               Transporter
@@ -65,8 +80,10 @@ const AddTrip = ({ onClose }) => {
             <input
               type="text"
               id="source"
+              name="source"
               class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleInputChange}
             />
             <label
               for="source"
@@ -79,12 +96,14 @@ const AddTrip = ({ onClose }) => {
           <div class="relative ml-2">
             <input
               type="text"
-              id="destination"
+              id="dest"
+              name="dest"
               class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleInputChange}
             />
             <label
-              for="destination"
+              for="dest"
               class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 start-1 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
             >
               Destination
@@ -96,12 +115,14 @@ const AddTrip = ({ onClose }) => {
           <div class="relative mr-4">
             <input
               type="text"
-              id="phone"
+              id="phone-number"
+              name="phoneNumber"
               class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleInputChange}
             />
             <label
-              for="phone"
+              for="phone-number"
               class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 start-1 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
             >
               Phone
