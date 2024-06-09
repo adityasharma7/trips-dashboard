@@ -11,3 +11,12 @@ The trips dashboard show various trips which are going through various vendors l
     `npm i`
 5. To run the app in browser use the command: `npm run start`
 5. To build the app in browser use the command: `npm run build`
+
+
+## Dockerfile
+
+`docker run -p 8080:3000 my-parcel-app`
+
+## Docker compose
+
+`docker-compose up`
