@@ -4,6 +4,7 @@ import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { tripsData } from '../utils/mockData'
 import Modal from 'react-modal';
 import EditTrip from './EditTrip.modal';
+import AddTrip from './AddTrip.modal';
 
 
 
@@ -12,9 +13,13 @@ const TripList = () => {
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
     const [isEditTripModalOpen, setIsEditTripModalOpen] = useState(false);
+    const [isAddTripModalOpen, setIsAddTripModalOpen] = useState(false);
 
     const handleOpenEditTripModal = () => setIsEditTripModalOpen(true);
     const handleCloseEditTripModal = () => setIsEditTripModalOpen(false);
+
+    const handleOpenAddTripModal = () => setIsAddTripModalOpen(true);
+    const handleCloseAddTripModal = () => setIsAddTripModalOpen(false);
 
     const tripsList = tripsData.data;
 
@@ -56,13 +61,28 @@ const TripList = () => {
             }} isOpen={isEditTripModalOpen} onClose={handleCloseEditTripModal}>
                 <EditTrip onClose={handleCloseEditTripModal} />
             </Modal>
+            <Modal style={{
+                overlay: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                },
+                content: {
+                backgroundColor: 'white',
+                borderRadius: '0.5rem',
+                padding: '2rem',
+                width: '600px',
+                maxHeight: '35vh',
+                margin: '0 auto',
+                },
+            }} isOpen={isAddTripModalOpen} onClose={handleCloseAddTripModal}>
+                <AddTrip onClose={handleCloseAddTripModal} />
+            </Modal>
         // TODO Implement pagination
         <div className="trip-list flex-row m-6 rounded-lg shadow-lg">
             <div className="trip-list-header flex justify-between items-center">
                 <h3 className='m-2 font-bold'>Trip List</h3>
                 <div className='trip-action flex m-2'>
                     <button type="button" onClick={handleOpenEditTripModal}  className="rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold" >Update status</button>
-                    <button type="button" className="rounded-md bg-primary m-3 px-3 py-2 text-sm font-semibold text-white">Add Trip</button>
+                    <button type="button" onClick={handleOpenAddTripModal}  className="rounded-md bg-primary m-3 px-3 py-2 text-sm font-semibold text-white">Add Trip</button>
                 </div>
             </div>
             <div className="trip-list-container overflow-x-auto">

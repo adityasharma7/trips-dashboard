@@ -1,8 +1,12 @@
+// The transporters should have a unique identifier
+// As per the mock data values are assigned
+// Added support to use IDs in future
 export const availableTransporters = {
-    "BLUE_DART": "Blue Dart",
+    "Blue Dart": "Blue Dart",
     "DTDC": "DTDC",
-    "DELHIVERY": "Delhivery",
-    "MERKS": "Merks"
+    "Delhivery": "Delhivery",
+    "Merks": "Merks",
+    "Gati": "Gati"
 }
 
 export const tripStatusCodes = {
