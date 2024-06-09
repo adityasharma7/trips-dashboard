@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { tripsData } from '../utils/mockData'
+import Modal from 'react-modal';
+import EditTrip from './EditTrip.modal';
 
 
 
@@ -9,8 +11,12 @@ const TripList = () => {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
+    const [isEditTripModalOpen, setIsEditTripModalOpen] = useState(false);
 
-  const tripsList = tripsData.data;
+    const handleOpenEditTripModal = () => setIsEditTripModalOpen(true);
+    const handleCloseEditTripModal = () => setIsEditTripModalOpen(false);
+
+    const tripsList = tripsData.data;
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -34,12 +40,28 @@ const TripList = () => {
     setSortOrder(newSortOrder);
   };
     return (
+        <Fragment>
+            <Modal style={{
+                overlay: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                },
+                content: {
+                backgroundColor: 'white',
+                borderRadius: '0.5rem',
+                padding: '2rem',
+                width: '450px',
+                maxHeight: '34vh',
+                margin: '0 auto',
+                },
+            }} isOpen={isEditTripModalOpen} onClose={handleCloseEditTripModal}>
+                <EditTrip onClose={handleCloseEditTripModal} />
+            </Modal>
         // TODO Implement pagination
         <div className="trip-list flex-row m-6 rounded-lg shadow-lg">
             <div className="trip-list-header flex justify-between items-center">
                 <h3 className='m-2 font-bold'>Trip List</h3>
                 <div className='trip-action flex m-2'>
-                    <button type="button"  className="rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold" >Update status</button>
+                    <button type="button" onClick={handleOpenEditTripModal}  className="rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold" >Update status</button>
                     <button type="button" className="rounded-md bg-primary m-3 px-3 py-2 text-sm font-semibold text-white">Add Trip</button>
                 </div>
             </div>
@@ -105,6 +127,7 @@ const TripList = () => {
             </table>
             </div>
         </div>
+        </Fragment>
     )
 }
 export default TripList;
