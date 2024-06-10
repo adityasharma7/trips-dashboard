@@ -31,7 +31,7 @@ Add Trip with validations:
 
 ## Dockerfile
 
-`docker run -p 8080:3000 my-parcel-app`
+`docker run -p 3000:3000 my-parcel-app`
 
 ## Docker compose
 
