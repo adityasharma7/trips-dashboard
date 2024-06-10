@@ -16,7 +16,7 @@ import { calculateTatStatus } from "../utils";
 
 const TripList = () => {
   const [selectedRows, setSelectedRows] = useState([]);
-  const [sortColumn, setSortColumn] = useState(null);
+  const [sortColumn, setSortColumn] = useState("source");
   const [sortOrder, setSortOrder] = useState("asc");
   const [isEditTripModalOpen, setIsEditTripModalOpen] = useState(false);
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState(false);
@@ -109,6 +109,19 @@ const TripList = () => {
     setSortOrder(newSortOrder);
   };
 
+  const sortList = () => {
+    return JSON.parse(JSON.stringify(tripsList)).sort((a, b) => {
+        const order = sortOrder === "asc" ? 1 : -1;
+        const valueA = a[sortColumn];
+        const valueB = b[sortColumn];
+        if (typeof valueA === 'string') {
+            return valueA.localeCompare(valueB) * order;
+        } else {
+            return (valueA - valueB) * order;
+        }
+    })
+  }
+
   const calculateEta = (days) => {
     return DateTime.local().plus({ days })
   }
@@ -200,7 +213,7 @@ const TripList = () => {
                 <th
                   key="Source"
                   className="px-4 py-2 border border-gray-200 cursor-pointer relative"
-                  onClick={() => handleSort(column.key)}
+                  onClick={() => handleSort("source")}
                 >
                   Source
                   <span className="ml-2">
@@ -221,7 +234,7 @@ const TripList = () => {
             </thead>
             <tbody>
               {tripsList.length > 0 ? (
-                tripsList.map((row) => (
+                sortList().map((row) => (
                   // TODO Format field values
                   <tr key={row.tripId} className="border-t">
                     <td className="px-4 py-2">
