@@ -55,8 +55,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 name="tripId"
                 class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
-                onChange={handleInputChange}
-                {...register("tripId", { required: true })}
+                {...register("tripId", { required: true, onChange: handleInputChange })}
               />
               <label
                 for="trip-id"
@@ -103,8 +102,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 name="source"
                 class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
-                onChange={handleInputChange}
-                {...register("source", { required: true })}
+                {...register("source", { required: true, onChange: handleInputChange })}
               />
               <label
                 for="source"
@@ -131,8 +129,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 name="dest"
                 class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
-                onChange={handleInputChange}
-                {...register("destination", { required: true })}
+                {...register("dest", { required: true, onChange: handleInputChange })}
               />
               <label
                 for="dest"
@@ -141,7 +138,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 <span className="text-red-600">*</span>Destination
               </label>
             </div>
-            {errors.destination && (
+            {errors.dest && (
               <p
                 id="outlined_error_help"
                 class="mt-2 text-xs text-red-600 dark:text-red-400"
@@ -162,7 +159,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 class="block px-4 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 onChange={handleInputChange}
-                {...register("contact", { required: true, pattern: /^(?:(?:\+?1|0)?[ \-]?\d{2}[ \-]?\d{3}[ \-]?\d{3}|\d{10})$/ })}
+                {...register("phoneNumber", { required: true, onChange: handleInputChange, pattern: /^(?:(?:\+?1|0)?[ \-]?\d{2}[ \-]?\d{3}[ \-]?\d{3}|\d{10})$/ })}
               />
               <label
                 for="phone-number"
@@ -171,7 +168,7 @@ const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
                 <span className="text-red-600">*</span>Phone
               </label>
             </div>
-            {errors.contact && (
+            {errors.phoneNumber && (
               <p
                 id="outlined_error_help"
                 class="mt-2 text-xs text-red-600 dark:text-red-400"
