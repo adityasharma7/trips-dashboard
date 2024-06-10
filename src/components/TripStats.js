@@ -2,15 +2,17 @@ import React from "react";
 import useTripStats from "../hooks/useTripStats";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { tripFilterStatus } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { updateFilters } from "../features/trip/tripSlice";
 
 const TripStats = () => {
   const { delivered, inTransit, totalTrips, delayed, onTimePercentage } =
     useTripStats();
     const dispatch = useDispatch();
+    const tripFilters = useSelector((state) => state.trip.filters);
     const handleFilterClick = (status) => {
-        dispatch(updateFilters({ status }))
+        // Remove filter if it is already applied
+        dispatch(updateFilters({ status: tripFilters.status !== status ? status : "" }))
     }
 
 
