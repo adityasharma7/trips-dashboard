@@ -187,7 +187,7 @@ const TripList = () => {
             borderRadius: "0.5rem",
             padding: "2rem",
             width: "600px",
-            maxHeight: "35vh",
+            maxHeight: "45vh",
             margin: "0 auto",
           },
         }}
