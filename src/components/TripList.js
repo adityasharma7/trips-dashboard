@@ -5,9 +5,14 @@ import Modal from "react-modal";
 import EditTrip from "./EditTrip.modal";
 import AddTrip from "./AddTrip.modal";
 import { useSelector, useDispatch } from "react-redux";
-import { addTrip, updateTripList, updateTripBulk } from '../features/trip/tripSlice';
+import {
+  addTrip,
+  updateTripList,
+  updateTripBulk,
+} from "../features/trip/tripSlice";
 import { tripStatusCodes } from "../utils/constants";
-
+import { DateTime } from "luxon";
+import { calculateTatStatus } from "../utils";
 
 const TripList = () => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -22,25 +27,23 @@ const TripList = () => {
   const handleOpenAddTripModal = () => setIsAddTripModalOpen(true);
   const handleCloseAddTripModal = () => setIsAddTripModalOpen(false);
 
-
   const tripsList = useSelector((state) => state.trip.list);
   const dispatch = useDispatch();
 
   const handleSubmitEditTripModal = (data) => {
     const { status, time } = data;
     const updatedTrips = tripsList.map((trip) => {
-        if (selectedRows.includes(trip.tripId)) {
-            return {
-                ...trip,
-                currentStatusCode: status,
-                currentStatus: tripStatusCodes[status].name,
-                lastPingTime: time,
-                ...(status === 'DEL' && { tripEndTime: time }),
-              };
-              
-        }
-        return trip;
-    })
+      if (selectedRows.includes(trip.tripId)) {
+        return {
+          ...trip,
+          currentStatusCode: status,
+          currentStatus: tripStatusCodes[status].name,
+          lastPingTime: time,
+          ...(status === "DEL" && { tripEndTime: time }),
+        };
+      }
+      return trip;
+    });
     dispatch(updateTripList(updatedTrips));
     // Alternate Approach:
     // const updatedTrips = tripsList.reduce((updatedTrips, trip) => {
@@ -57,11 +60,31 @@ const TripList = () => {
     // }, [])
     // dispatch(updateTripBulk(updatedTrips));
     setSelectedRows([]);
-  }
+  };
+
+  const handleUpdateEditTripModal = (data) => {
+    const { status, tripId } = data;
+    const now = DateTime.local();
+    const formattedDateString = now.toFormat("yyyy-LL-dd'T'HH:mm:ss.SSS'Z'");
+
+    const updatedTrips = tripsList.map((trip) => {
+      if (trip.tripId = tripId) {
+        return {
+          ...trip,
+          currentStatusCode: status,
+          currentStatus: tripStatusCodes[status].name,
+          lastPingTime: formattedDateString,
+          ...(status === "DEL" && { tripEndTime: formattedDateString }),
+        };
+      }
+      return trip;
+    });
+    dispatch(updateTripList(updatedTrips));
+    }
 
   const handleSubmitAddTripModal = (data) => {
     dispatch(addTrip(data));
-  }
+  };
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -85,6 +108,11 @@ const TripList = () => {
     setSortColumn(column);
     setSortOrder(newSortOrder);
   };
+
+  const calculateEta = (days) => {
+    return DateTime.local().plus({ days })
+  }
+
   // TODO Implement pagination
   return (
     <Fragment>
@@ -105,7 +133,10 @@ const TripList = () => {
         isOpen={isEditTripModalOpen}
         onClose={handleCloseEditTripModal}
       >
-        <EditTrip onClose={handleCloseEditTripModal} onSubmit={handleSubmitEditTripModal} />
+        <EditTrip
+          onClose={handleCloseEditTripModal}
+          onSubmit={handleSubmitEditTripModal}
+        />
       </Modal>
       <Modal
         style={{
@@ -124,7 +155,11 @@ const TripList = () => {
         isOpen={isAddTripModalOpen}
         onClose={handleCloseAddTripModal}
       >
-        <AddTrip onClose={handleCloseAddTripModal} onSubmit={handleSubmitAddTripModal} />
+        <AddTrip
+          onClose={handleCloseAddTripModal}
+          onSubmit={handleSubmitAddTripModal}
+          onUpdate={handleUpdateEditTripModal}
+        />
       </Modal>
       <div className="trip-list flex-row m-6 rounded-lg shadow-lg">
         <div className="trip-list-header flex justify-between items-center">
@@ -133,7 +168,9 @@ const TripList = () => {
             <button
               type="button"
               onClick={handleOpenEditTripModal}
-              className={`rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold ${selectedRows.length === 0 ? 'disabled:opacity-50' : ''}`}
+              className={`rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold ${
+                selectedRows.length === 0 ? "disabled:opacity-50" : ""
+              }`}
               disabled={selectedRows.length === 0}
             >
               Update status
@@ -183,28 +220,29 @@ const TripList = () => {
               </tr>
             </thead>
             <tbody>
-              {tripsList.length > 0 ? tripsList.map((row) => (
-                // TODO Format field values
-                <tr key={row.tripId} className="border-t">
-                  <td className="px-4 py-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.includes(row.tripId)}
-                      onChange={() => handleSelectRow(row.tripId)}
-                    />
-                  </td>
-                  <td className="px-4 py-2">{row.tripId}</td>
-                  <td className="px-4 py-2">{row.transporter}</td>
-                  <td className="px-4 py-2">{row.source}</td>
-                  <td className="px-4 py-2">{row.dest}</td>
-                  <td className="px-4 py-2">{row.phoneNumber}</td>
-                  <td className="px-4 py-2">{row.etaDays}</td>
-                  <td className="px-4 py-2">{row.distanceRemaining}</td>
-                  <td className="px-4 py-2">{row.currentStatus}</td>
-                  {/* // TODO TAT Status */}
-                  <td className="px-4 py-2">{row.source}</td>
-                </tr>
-              )): (
+              {tripsList.length > 0 ? (
+                tripsList.map((row) => (
+                  // TODO Format field values
+                  <tr key={row.tripId} className="border-t">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.includes(row.tripId)}
+                        onChange={() => handleSelectRow(row.tripId)}
+                      />
+                    </td>
+                    <td className="px-4 py-2">{row.tripId}</td>
+                    <td className="px-4 py-2">{row.transporter}</td>
+                    <td className="px-4 py-2">{row.source}</td>
+                    <td className="px-4 py-2">{row.dest}</td>
+                    <td className="px-4 py-2">{row.phoneNumber}</td>
+                    <td className="px-4 py-2">{row.etaDays ? calculateEta(row.etaDays).toLocaleString(DateTime.DATETIME_SHORT) : '-'}</td>
+                    <td className="px-4 py-2">{row.distanceRemaining}</td>
+                    <td className="px-4 py-2">{row.currentStatus}</td>
+                    <td className="px-4 py-2">{calculateTatStatus(row)}</td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
                   <td colSpan="10" className="text-center py-4">
                     No Trips Found

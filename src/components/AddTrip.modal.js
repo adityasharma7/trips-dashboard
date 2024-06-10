@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { availableTransporters } from "../utils/constants";
-const AddTrip = ({ onClose, onSubmit }) => {
+const AddTrip = ({ onClose, onSubmit, onUpdate }) => {
   const [formData, setFormData] = useState({
     transporter: "Blue Dart"
   });
@@ -21,6 +21,11 @@ const AddTrip = ({ onClose, onSubmit }) => {
     onSubmit(formData);
     onClose();
   };
+
+  const handleUpdate = (event) => {
+    onUpdate(formData);
+    onClose();
+  }
   // TODO Add validations to all the fields
   return (
     <Fragment>
@@ -132,7 +137,7 @@ const AddTrip = ({ onClose, onSubmit }) => {
         <div className="flex form-action flex-row justify-end">
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleUpdate}
             className="rounded-md border-2 border-solid  border-secondary m-3 px-3 py-2 text-sm font-semibold"
           >
             Update Status

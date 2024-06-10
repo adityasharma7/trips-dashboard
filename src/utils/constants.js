@@ -27,3 +27,9 @@ export const tripStatusCodes = {
         name: "Delivered"
     }
 }
+
+export const availableTatStatus = {
+    "ONTIME": "On Time",
+    "DELAYED": "Delayed",
+    "OTHER": "Other"
+}
