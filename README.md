@@ -15,6 +15,8 @@ Add Trip
 Add Trip with validations:
 ![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/359f0a21-cfd0-4495-9160-a58a643573a4)
 
+## Walkthrough
+[Link](https://github.com/adityasharma7/trips-dashboard/assets/15027245/403d3d34-92e5-43ac-92e4-c51b516ec0b8)
 
 ## Setup Instructions
 
