@@ -34,3 +34,22 @@ Add Trip with validations:
 ## Docker compose
 
 `docker-compose up`
+
+## Libraries used
+
+- [React](https://react.dev/)
+- [Parcel](https://parceljs.org/) - Bundler
+- [Redux](https://redux.js.org/) - State management
+- [Tailwind CSS](https://tailwindcss.com/) - CSS Framework
+- [Luxon](https://moment.github.io/luxon/#/) - Processing date time
+- [React Date Picker](https://www.npmjs.com/package/react-date-picker) - Date time input
+- [React Circular Progressbar](https://www.npmjs.com/package/react-circular-progressbar) - Progress bar - dashboard
+- [React Hook Form](https://react-hook-form.com/) - Form Validations
+- [React Modal](https://reactcommunity.org/react-modal/) - Modal
+
+
+## Features
+
+
+## Known issues
+
