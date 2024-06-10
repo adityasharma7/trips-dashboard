@@ -161,7 +161,7 @@ const TripList = () => {
           onUpdate={handleUpdateEditTripModal}
         />
       </Modal>
-      <div className="trip-list flex-row m-6 rounded-lg shadow-lg">
+      <div className="trip-list flex-row m-6 rounded-lg shadow-xl">
         <div className="trip-list-header flex justify-between items-center">
           <h3 className="m-2 font-bold">Trip List</h3>
           <div className="trip-action flex m-2">
@@ -239,7 +239,7 @@ const TripList = () => {
                     <td className="px-4 py-2">{row.etaDays ? calculateEta(row.etaDays).toLocaleString(DateTime.DATETIME_SHORT) : '-'}</td>
                     <td className="px-4 py-2">{row.distanceRemaining}</td>
                     <td className="px-4 py-2">{row.currentStatus}</td>
-                    <td className="px-4 py-2">{calculateTatStatus(row)}</td>
+                    <td className="px-4 py-2 ">{calculateTatStatus(row)}</td>
                   </tr>
                 ))
               ) : (

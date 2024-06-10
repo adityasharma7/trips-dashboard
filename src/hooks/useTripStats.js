@@ -19,11 +19,14 @@ const useTripStats = () => {
     (trip) => calculateTatStatus(trip.currentStatusCode) === availableTatStatus.DELAYED
   ).length;
 
+  const onTimePercentage = (totalTrips - delayed) / totalTrips * 100;
+
   return {
     delayed,
     totalTrips,
     delivered,
     inTransit,
+    onTimePercentage
   };
 };
 

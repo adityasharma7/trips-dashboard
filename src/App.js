@@ -5,6 +5,7 @@ import Body from './components/Body';
 import "react-datepicker/dist/react-datepicker.css";
 import store from './store';
 import { Provider } from 'react-redux';
+import 'react-circular-progressbar/dist/styles.css';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
