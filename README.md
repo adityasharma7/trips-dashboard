@@ -25,8 +25,8 @@ Add Trip with validations:
 3. Go to the trips-dashboard directory using command: `cd trips-dashboard`
 4. Run following command to download dependencies
     `npm i`
-5. To run the app in browser use the command: `npm run start`
-5. To build the app in browser use the command: `npm run build`
+5. To run the app in browser use the command: `npm run start` (App will be available at http://localhost:3000/)
+5. To build the app use the command: `npm run build`
 
 
 ## Dockerfile
