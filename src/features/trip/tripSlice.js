@@ -1,9 +1,13 @@
 import { generateUUID } from "../../utils";
+import { tripFilterStatus } from "../../utils/constants";
 import { tripsData } from "../../utils/mockData"
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    list: tripsData.data
+    list: tripsData.data,
+    filters: {
+        status: tripFilterStatus.DELIVERED
+    }
 }
 
 const tripSlice = createSlice({
@@ -34,10 +38,13 @@ const tripSlice = createSlice({
                 }
             });
         },
+        updateFilters: (state, action) => {
+            state.filters = {...state.filters, ...action.payload}
+        }
 
     }
 })
 
 
-export const { addTrip, updateTrip, updateTripBulk, updateTripList } =  tripSlice.actions
+export const { addTrip, updateTrip, updateTripBulk, updateTripList, updateFilters } =  tripSlice.actions
 export default tripSlice.reducer;

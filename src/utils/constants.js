@@ -33,3 +33,9 @@ export const availableTatStatus = {
     "DELAYED": "Delayed",
     "OTHER": "Other"
 }
+
+export const tripFilterStatus = {
+    "DELAYED": "DELAYED",
+    "DELIVERED": "DELIVERED",
+    "IN_TRANSIT": "IN_TRANSIT"
+}

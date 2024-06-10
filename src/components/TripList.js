@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
@@ -10,7 +10,7 @@ import {
   updateTripList,
   updateTripBulk,
 } from "../features/trip/tripSlice";
-import { tripStatusCodes } from "../utils/constants";
+import { availableTatStatus, tripFilterStatus, tripStatusCodes } from "../utils/constants";
 import { DateTime } from "luxon";
 import { calculateTatStatus } from "../utils";
 
@@ -20,6 +20,8 @@ const TripList = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [isEditTripModalOpen, setIsEditTripModalOpen] = useState(false);
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState(false);
+  const [filteredList, setFilteredList] = useState([]);
+
 
   const handleOpenEditTripModal = () => setIsEditTripModalOpen(true);
   const handleCloseEditTripModal = () => setIsEditTripModalOpen(false);
@@ -27,12 +29,19 @@ const TripList = () => {
   const handleOpenAddTripModal = () => setIsAddTripModalOpen(true);
   const handleCloseAddTripModal = () => setIsAddTripModalOpen(false);
 
-  const tripsList = useSelector((state) => state.trip.list);
+  const tripList = useSelector((state) => state.trip.list);
+  const tripFilters = useSelector((state) => state.trip.filters);
   const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    setFilteredList(filterList(tripList));
+  }, [tripList, tripFilters])
 
   const handleSubmitEditTripModal = (data) => {
     const { status, time } = data;
-    const updatedTrips = tripsList.map((trip) => {
+    const updatedTrips = tripList.map((trip) => {
       if (selectedRows.includes(trip.tripId)) {
         return {
           ...trip,
@@ -46,7 +55,7 @@ const TripList = () => {
     });
     dispatch(updateTripList(updatedTrips));
     // Alternate Approach:
-    // const updatedTrips = tripsList.reduce((updatedTrips, trip) => {
+    // const updatedTrips = tripList.reduce((updatedTrips, trip) => {
     //     if (selectedRows.includes(trip.tripId)) {
     //           updatedTrips.push({
     //             ...trip,
@@ -67,7 +76,7 @@ const TripList = () => {
     const now = DateTime.local();
     const formattedDateString = now.toFormat("yyyy-LL-dd'T'HH:mm:ss.SSS'Z'");
 
-    const updatedTrips = tripsList.map((trip) => {
+    const updatedTrips = tripList.map((trip) => {
       if (trip.tripId = tripId) {
         return {
           ...trip,
@@ -88,7 +97,7 @@ const TripList = () => {
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedRows(tripsList.map((row) => row.tripId));
+      setSelectedRows(filteredList.map((row) => row.tripId));
     } else {
       setSelectedRows([]);
     }
@@ -109,8 +118,8 @@ const TripList = () => {
     setSortOrder(newSortOrder);
   };
 
-  const sortList = () => {
-    return JSON.parse(JSON.stringify(tripsList)).sort((a, b) => {
+  const sortList = (tripList) => {
+    return JSON.parse(JSON.stringify(tripList)).sort((a, b) => {
         const order = sortOrder === "asc" ? 1 : -1;
         const valueA = a[sortColumn];
         const valueB = b[sortColumn];
@@ -120,6 +129,23 @@ const TripList = () => {
             return (valueA - valueB) * order;
         }
     })
+  }
+
+  const filterList = (tripList) => {
+    if (tripFilters.status === tripFilterStatus.DELIVERED) {
+        return tripList.filter(
+            (trip) => trip.currentStatusCode === "DEL"
+          )
+    } else if (tripFilters.status === tripFilterStatus.IN_TRANSIT) {
+        return tripList.filter(
+            (trip) => trip.currentStatusCode === "INT"
+          )
+    } else if (tripFilters.status === tripFilterStatus.DELAYED) {
+        return tripList.filter(
+            (trip) => calculateTatStatus(trip.currentStatusCode) === availableTatStatus.DELAYED
+          )
+    }
+    return tripList;
   }
 
   const calculateEta = (days) => {
@@ -204,7 +230,7 @@ const TripList = () => {
                 <th className="px-4 py-2 text-left">
                   <input
                     type="checkbox"
-                    checked={selectedRows.length === tripsList.length}
+                    checked={selectedRows.length === filteredList.length}
                     onChange={handleSelectAll}
                   />
                 </th>
@@ -233,8 +259,8 @@ const TripList = () => {
               </tr>
             </thead>
             <tbody>
-              {tripsList.length > 0 ? (
-                sortList().map((row) => (
+              {filteredList.length > 0 ? (
+                sortList(filteredList).map((row) => (
                   // TODO Format field values
                   <tr key={row.tripId} className="border-t">
                     <td className="px-4 py-2">
