@@ -54,6 +54,7 @@ Add Trip with validations:
 
 
 ## TODO
+- Sorting on all the columns (code is generic and supports sorting on multiple field, need to bind on UI)
 - Fix the issue with the date time picker having UI issue with modal
 - Add toast for success and error messages
 - Add pagination or infinite scroll on the list page
