@@ -16,7 +16,7 @@ Add Trip with validations:
 ![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/359f0a21-cfd0-4495-9160-a58a643573a4)
 
 ## Walkthrough
-[Link](https://github.com/adityasharma7/trips-dashboard/assets/15027245/403d3d34-92e5-43ac-92e4-c51b516ec0b8)
+[Link](https://youtu.be/RqgAm55FE3Y)
 
 ## Setup Instructions
 
@@ -25,17 +25,17 @@ Add Trip with validations:
 3. Go to the trips-dashboard directory using command: `cd trips-dashboard`
 4. Run following command to download dependencies
     `npm i`
-5. To run the app in browser use the command: `npm run start`
-5. To build the app in browser use the command: `npm run build`
+5. To run the app in browser use the command: `npm run start` (App will be available at http://localhost:3000/)
+5. To build the app use the command: `npm run build`
 
 
 ## Dockerfile
 
-`docker run -p 8080:3000 my-parcel-app`
+`docker run -p 3000:3000 my-parcel-app`
 
 ## Docker compose
 
-`docker-compose up`
+`docker-compose up --build`
 
 ## Libraries used
 
@@ -53,5 +53,9 @@ Add Trip with validations:
 ## Features
 
 
-## Known issues
-
+## TODO
+- Sorting on all the columns (code is generic and supports sorting on multiple field, need to bind on UI)
+- Fix the issue with the date time picker having UI issue with modal
+- Add toast for success and error messages
+- Add pagination or infinite scroll on the list page
+- UI for the trip stats could be improved
