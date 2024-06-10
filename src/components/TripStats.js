@@ -1,8 +1,10 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
+import useTripStats from "../hooks/useTripStats";
 
 const TripStats = () => {
+    const { delivered, inTransit, totalTrips, delayed  } = useTripStats();
     const tripsList = useSelector((state) => state.trip.list);
 
     const calculateDeliveredTrips = () => {
@@ -21,7 +23,7 @@ const TripStats = () => {
                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                                 Total trips
                             </dt>
-                            <dd className="order-1 text-2xl text-gray-700">{tripsList.length}</dd>
+                            <dd className="order-1 text-2xl text-gray-700">{totalTrips}</dd>
                         </div>
                     </dl>
                 </div>
@@ -31,7 +33,7 @@ const TripStats = () => {
                             <dt className="order-2 mt-2 leading-6 font-medium text-gray-500">
                                 Delivered
                             </dt>
-                            <dd className="order-1 text-2xl text-gray-700">{calculateDeliveredTrips()}</dd>
+                            <dd className="order-1 text-2xl text-gray-700">{delivered}</dd>
                         </div>
                     </dl>
                 </div>
@@ -41,20 +43,20 @@ const TripStats = () => {
                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                                 Delayed
                             </dt>
-                            <dd className="order-1 text-2xl text-gray-700">18,033</dd>
+                            <dd className="order-1 text-2xl text-gray-700">{delayed}</dd>
                         </div>
                         <div
                             className="flex flex-col-reverse border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                                 In transit
                             </dt>
-                            <dd className="order-1 text-2xl text-gray-700">{calculateInTransitTrips()}</dd>
+                            <dd className="order-1 text-2xl text-gray-700">{inTransit}</dd>
                         </div>
                         <div className="flex flex-col-reverse border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
                             <dt className="order-2 mt-2 leading-6 font-medium text-gray-500">
                             Delivered
                             </dt>
-                            <dd className="order-1 text-2xl text-gray-700">{calculateDeliveredTrips()}</dd>
+                            <dd className="order-1 text-2xl text-gray-700">{delivered}</dd>
                         </div>
                     </dl>
                 </div>
