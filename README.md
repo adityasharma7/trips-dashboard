@@ -35,7 +35,7 @@ Add Trip with validations:
 
 ## Docker compose
 
-`docker-compose up`
+`docker-compose up --build`
 
 ## Libraries used
 
