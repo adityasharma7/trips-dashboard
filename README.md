@@ -53,5 +53,8 @@ Add Trip with validations:
 ## Features
 
 
-## Known issues
-
+## TODO
+- Fix the issue with the date time picker having UI issue with modal
+- Add toast for success and error messages
+- Add pagination or infinite scroll on the list page
+- UI for the trip stats could be improved
