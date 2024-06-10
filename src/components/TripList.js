@@ -113,7 +113,6 @@ const TripList = () => {
   const handleSort = (column) => {
     const newSortOrder =
       sortColumn === column ? (sortOrder === "asc" ? "desc" : "asc") : "asc";
-    // TODO Implement sorting logic
     setSortColumn(column);
     setSortOrder(newSortOrder);
   };
@@ -261,7 +260,6 @@ const TripList = () => {
             <tbody>
               {filteredList.length > 0 ? (
                 sortList(filteredList).map((row) => (
-                  // TODO Format field values
                   <tr key={row.tripId} className="border-t">
                     <td className="px-4 py-2">
                       <input
