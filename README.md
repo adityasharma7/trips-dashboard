@@ -1,4 +1,4 @@
-# trips-dashboard
+# Trips Dashboard
 
 The trips dashboard show various trips which are going through various vendors like Gati, Bluedart etc.
 
