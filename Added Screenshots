@@ -2,6 +2,20 @@
 
 The trips dashboard show various trips which are going through various vendors like Gati, Bluedart etc.
 
+## Screenshot
+Dashboard:
+![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/403d3d34-92e5-43ac-92e4-c51b516ec0b8)
+
+Update status:
+![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/7ec3148a-f973-40e8-bf89-ad3257c0311a)
+
+Add Trip
+![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/4004e4aa-2c52-4327-b87e-c062679525c0)
+
+Add Trip with validations:
+![image](https://github.com/adityasharma7/trips-dashboard/assets/15027245/359f0a21-cfd0-4495-9160-a58a643573a4)
+
+
 ## Setup Instructions
 
 1. Open a Terminal window
