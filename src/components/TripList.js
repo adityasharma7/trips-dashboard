@@ -141,7 +141,7 @@ const TripList = () => {
           )
     } else if (tripFilters.status === tripFilterStatus.DELAYED) {
         return tripList.filter(
-            (trip) => calculateTatStatus(trip.currentStatusCode) === availableTatStatus.DELAYED
+            (trip) => calculateTatStatus(trip) === availableTatStatus.DELAYED
           )
     }
     return tripList;
@@ -172,6 +172,7 @@ const TripList = () => {
         onClose={handleCloseEditTripModal}
       >
         <EditTrip
+          selectedRows={selectedRows}
           onClose={handleCloseEditTripModal}
           onSubmit={handleSubmitEditTripModal}
         />

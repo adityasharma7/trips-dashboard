@@ -1,11 +1,21 @@
 import React, { Fragment, useState } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
 import { tripStatusCodes } from "../utils/constants";
 
-const EditTrip = ({ onClose, onSubmit }) => {
+const EditTrip = ({ selectedRows, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({});
+  const tripList = useSelector((state)=> state.trip.list);
+
+  const currentStatusCode = tripList.find((trip) => trip.tripId === selectedRows[0]).currentStatusCode;
+
+  const filteredValidStatus = () => {
+    return Object.keys(tripStatusCodes).filter((status) => {
+      return tripStatusCodes[currentStatusCode].sequence < tripStatusCodes[status].sequence
+    })
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,6 +39,8 @@ const EditTrip = ({ onClose, onSubmit }) => {
     onClose();
   };
 
+
+
   return (
     <Fragment>
       <div className="flex justify-between items-center mb-10">
@@ -51,7 +63,7 @@ const EditTrip = ({ onClose, onSubmit }) => {
           >
             <option selected>Select a status</option>
             {
-                Object.keys(tripStatusCodes).map((statusCode) => {
+                filteredValidStatus().map((statusCode) => {
                     return (
                         <option  value={statusCode}>{tripStatusCodes[statusCode].name}</option>
                     )

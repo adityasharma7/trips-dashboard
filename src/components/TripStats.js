@@ -44,8 +44,8 @@ const TripStats = () => {
                 style={{ width: 60, height: 60 }}
               >
                 <CircularProgressbar
-                  value={onTimePercentage}
-                  text={`${onTimePercentage}%`}
+                  value={onTimePercentage.toPrecision(2)}
+                  text={`${onTimePercentage.toPrecision(2)}%`}
                   styles={buildStyles({
                     pathColor: "green",
                     textColor: "green",

@@ -16,10 +16,14 @@ const useTripStats = () => {
   ).length;
 
   const delayed = tripsList.filter(
-    (trip) => calculateTatStatus(trip.currentStatusCode) === availableTatStatus.DELAYED
+    (trip) => calculateTatStatus(trip) === availableTatStatus.DELAYED
   ).length;
 
-  const onTimePercentage = (totalTrips - delayed) / totalTrips * 100;
+  const onTime = tripsList.filter(
+    (trip) => calculateTatStatus(trip) === availableTatStatus.ONTIME
+  ).length;
+
+  const onTimePercentage = (onTime) / (totalTrips) * 100;
 
   return {
     delayed,

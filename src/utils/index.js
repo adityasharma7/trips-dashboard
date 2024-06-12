@@ -10,7 +10,7 @@ export const calculateTatStatus = (trip) => {
 
     let endTime = DateTime.local();
 
-    if (!etaDays | etaDays <= 0) {
+    if (!etaDays || etaDays <= 0) {
         return availableTatStatus.OTHER;
     }
 
@@ -21,7 +21,7 @@ export const calculateTatStatus = (trip) => {
     }
 
 
-    const difference = DateTime.fromISO(tripStartTime).diff(endTime).as('days');
+    const difference = endTime.diff(DateTime.fromISO(tripStartTime)).as('days');
 
     return difference <= etaDays ? availableTatStatus.ONTIME : availableTatStatus.DELAYED;
 }
