@@ -59,3 +59,4 @@ Add Trip with validations:
 - Add toast for success and error messages
 - Add pagination or infinite scroll on the list page
 - UI for the trip stats could be improved
+- Unit test
